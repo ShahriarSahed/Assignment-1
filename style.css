@@ -1,0 +1,412 @@
+/* Autokorjaamo Hakola - shared E2 stylesheet
+   Mobile-first layout using the CSS topics from Lectures 3 and 4. */
+
+:root {
+    color-scheme: light;
+
+    /* Colour tokens */
+    --page-bg: #F5F2EB;
+    --surface: #FFFFFF;
+    --surface-muted: #EEEAE2;
+    --text: #202A35;
+    --text-muted: #4B5967;
+    --brand: #7A3518;
+    --border: #D6D1C7;
+    --nav-bg: #1C2E3A;
+    --nav-text: #FFFFFF;
+    --nav-accent: #F2B544;
+    --button-text: #FFFFFF;
+    --field-bg: #FFFFFF;
+    --focus: #145A72;
+    --nav-focus: #F2B544;
+    --shadow: 0 0.5rem 1.5rem rgb(32 42 53 / 7%);
+
+    /* Type and spacing tokens */
+    --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --space-1: 0.5rem;
+    --space-2: 1rem;
+    --space-3: 1.5rem;
+    --content-width: 72rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+
+        --page-bg: #111A22;
+        --surface: #1A2732;
+        --surface-muted: #243541;
+        --text: #F4F1EA;
+        --text-muted: #BBC6CE;
+        --brand: #F1A35B;
+        --border: #52616D;
+        --nav-bg: #0B141B;
+        --nav-text: #F4F1EA;
+        --nav-accent: #F1A35B;
+        --button-text: #17212B;
+        --field-bg: #14212C;
+        --focus: #F2B544;
+        --nav-focus: #F2B544;
+        --shadow: none;
+    }
+}
+
+/* Predictable box sizing and fluid defaults */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    min-width: 0;
+    scroll-padding-top: 6rem;
+}
+
+body {
+    min-width: 0;
+    min-height: 100dvh;
+    margin: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background: var(--page-bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-wrap: break-word;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Shared header and flexible navigation */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+    padding: 0.85rem clamp(1rem, 4vw, 3rem);
+    background: var(--nav-bg);
+    color: var(--nav-text);
+    box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 15%);
+}
+
+header > p {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 750;
+    letter-spacing: 0.01em;
+}
+
+header nav {
+    min-width: 0;
+    max-width: 100%;
+}
+
+header nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.45rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+header nav a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    padding: 0.55rem 0.7rem;
+    border-radius: 0.45rem;
+    color: var(--nav-text);
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+header nav a[aria-current="page"] {
+    color: var(--nav-accent);
+    text-decoration: underline;
+    text-decoration-thickness: 0.14em;
+    text-underline-offset: 0.3em;
+}
+
+@media (hover: hover) {
+    header nav a:hover {
+        background: rgb(255 255 255 / 13%);
+    }
+
+    button:hover {
+        filter: brightness(0.94);
+    }
+
+    main a:hover {
+        text-decoration-thickness: 0.14em;
+    }
+}
+
+/* Main content */
+main {
+    width: min(var(--content-width), calc(100% - 2rem));
+    min-width: 0;
+    margin-inline: auto;
+    padding-block: clamp(2rem, 5vw, 4rem);
+}
+
+main > h1 {
+    max-width: 20ch;
+    margin: 0 0 1rem;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+}
+
+main > p {
+    max-width: 65ch;
+    margin: 0 0 1rem;
+    color: var(--text-muted);
+}
+
+main > h1 + p {
+    color: var(--text);
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+}
+
+main > section {
+    min-width: 0;
+    margin-block: 1rem;
+    padding: clamp(1.1rem, 2.5vw, 1.6rem);
+    border: 1px solid var(--border);
+    border-radius: 0.9rem;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+}
+
+main > section h2 {
+    margin: 0 0 0.6rem;
+    font-size: 1.3rem;
+    line-height: 1.25;
+}
+
+main > section p {
+    max-width: 65ch;
+    margin-block: 0.55rem;
+}
+
+a {
+    color: var(--brand);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+}
+
+main a {
+    font-weight: 650;
+}
+
+button {
+    min-height: 2.75rem;
+    padding: 0.7rem 1.2rem;
+    border: 2px solid transparent;
+    border-radius: 0.55rem;
+    background: var(--brand);
+    color: var(--button-text);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+}
+
+button:active {
+    filter: brightness(0.88);
+}
+
+/* Service request form */
+#service-request-form {
+    display: grid;
+    gap: 1rem;
+    max-width: 44rem;
+}
+
+#service-request-form > p {
+    min-width: 0;
+    margin: 0;
+}
+
+#service-request-form br {
+    display: none;
+}
+
+#service-request-form label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 650;
+    line-height: 1.4;
+}
+
+#service-request-form input,
+#service-request-form textarea {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-height: 2.8rem;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: var(--field-bg);
+    color: var(--text);
+    font: inherit;
+}
+
+#service-request-form textarea {
+    min-height: 9rem;
+    resize: vertical;
+}
+
+#service-request-form button {
+    width: fit-content;
+    max-width: 100%;
+}
+
+#form-status {
+    max-width: 44rem;
+    line-height: 1.55;
+}
+
+#form-status:not(:empty) {
+    padding: 1rem;
+    border-left: 0.3rem solid var(--brand);
+    border-radius: 0.4rem;
+    background: var(--surface-muted);
+}
+
+/* Visible keyboard focus. The header uses a focus colour that contrasts
+   with its dark background; other controls use the page focus colour. */
+:where(a, button, input, textarea):focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+}
+
+header nav a:focus-visible {
+    outline-color: var(--nav-focus);
+}
+
+/* Footer stays at the bottom on short pages */
+footer {
+    padding: 1.25rem 1rem;
+    background: var(--nav-bg);
+    color: var(--nav-text);
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* The services page has four or more sections: let cards fill available
+   space and wrap naturally instead of fixing a number of columns. */
+@media (min-width: 48rem) {
+    header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+    }
+
+    header nav ul {
+        justify-content: flex-end;
+    }
+
+    main:has(> section:nth-of-type(4)) {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+        align-content: start;
+        gap: 1rem;
+    }
+
+    main:has(> section:nth-of-type(4)) > h1,
+    main:has(> section:nth-of-type(4)) > p:first-of-type {
+        grid-column: 1 / -1;
+    }
+
+    main:has(> section:nth-of-type(4)) > section {
+        margin: 0;
+    }
+
+    main:has(> section:nth-of-type(4)) > section:last-of-type {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Stronger edges for users who request more contrast */
+@media (prefers-contrast: more) {
+    main > section,
+    #service-request-form input,
+    #service-request-form textarea {
+        border-width: 2px;
+    }
+
+    a {
+        text-decoration-thickness: 0.14em;
+    }
+}
+
+/* Respect the operating system's reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto;
+        animation: none;
+        transition: none;
+    }
+}
+
+/* A paper-friendly version for printed service details */
+@media print {
+    :root {
+        color-scheme: light;
+        --page-bg: #FFFFFF;
+        --surface: #FFFFFF;
+        --surface-muted: #FFFFFF;
+        --text: #000000;
+        --text-muted: #222222;
+        --brand: #000000;
+        --border: #777777;
+        --shadow: none;
+    }
+
+    header,
+    footer,
+    button,
+    #service-request-form {
+        display: none;
+    }
+
+    body {
+        display: block;
+        background: #FFFFFF;
+        color: #000000;
+    }
+
+    main {
+        width: 100%;
+        padding: 0;
+    }
+
+    main > section {
+        break-inside: avoid;
+        box-shadow: none;
+    }
+
+    a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.85em;
+        font-weight: 400;
+    }
+}
